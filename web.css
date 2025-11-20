@@ -1,0 +1,125 @@
+/* -------- GLOBAL PAGE STYLES -------- */
+body {
+    font-family: system-ui, Inter, Roboto, sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 16px;
+    color: #222;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding-bottom: 40px;
+}
+
+/* -------- CARD -------- */
+.card {
+    background: #ffffff;
+    padding: 20px 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+/* -------- INPUT FIELDS -------- */
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    font-size: 15px;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* -------- BUTTON -------- */
+button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    background: #1e8449;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #166937;
+}
+
+/* -------- RESULTS SECTION -------- */
+.result-box {
+    background: #eafaf1;
+    border: 1px solid #d4efdf;
+    padding: 16px;
+    border-radius: 10px;
+    margin-top: 16px;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 15px;
+}
+
+.result-row:last-child {
+    border-bottom: none;
+}
+
+/* Total */
+.total-tax {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+    color: #0b5345;
+}
+
+/* -------- MEDIA (FOR MOBILE) -------- */
+@media (max-width: 768px) {
+    .card {
+        padding: 16px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+
+    .result-row {
+        font-size: 14px;
+    }
+}
