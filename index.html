@@ -4,27 +4,189 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Income Tax Calculator (India)</title>
+
 <style>
-  body {font-family: Inter, sans-serif; background:#f8fafc; margin:0; padding:16px;}
-  .container {max-width: 900px; margin:auto;}
-  .card {background:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,0.06);} 
-  h2 {font-size:20px; margin-bottom:12px;}
-  .section {margin-top:20px;}
-  .section h3 {font-size:16px; margin:0 0 8px; color:#111;} 
-  label {font-size:13px; color:#555;} 
-  input, select {width:100%; padding:10px; border:1px solid #d4d7dd; border-radius:8px; margin-top:4px;} 
-  .row {display:flex; gap:16px; flex-wrap:wrap;} 
-  .col {flex:1; min-width:240px;} 
-  button {width:100%; margin-top:20px; padding:14px; border:none; border-radius:8px; background:#00b878; color:#fff; font-size:16px; cursor:pointer;} 
-  .result {margin-top:20px; padding:16px; background:#f1f5f9; border-radius:8px;} 
+  /* -------------------- Base UI (your existing CSS) -------------------- */
+body {
+  font-family: Inter, sans-serif;
+  background:#f8fafc;
+  margin:0;
+  padding:16px;
+}
+
+.container {
+  max-width: 900px;
+  margin:auto;
+}
+
+.card {
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.06);
+}
+
+h2 {
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.section {
+  margin-top:20px;
+}
+
+.section h3 {
+  font-size:16px;
+  margin:0 0 8px;
+}
+
+label {
+  font-size:13px;
+  color:#555;
+}
+
+input,
+select {
+  width:100%;
+  padding:10px;
+  border:1px solid #d4d7dd;
+  border-radius:8px;
+  margin-top:4px;
+  font-size:14px;
+}
+
+.row {
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  padding-right: 20px;
+}
+
+.col {
+  flex:1;
+  min-width:240px;
+  padding: 0 0px;
+}
+
+button {
+  width:100%;
+  margin-top:20px;
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  background:#00b878;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.2s ease;
+}
+
+button:hover {
+  background:#009e68;
+}
+
+.result {
+  margin-top:20px;
+  padding:16px;
+  background:#f1f5f9;
+  border-radius:8px;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* -------------------- Collapsible Section Styles -------------------- */
+
+/* --- Correct Collapsible CSS (matching your HTML classes) --- */
+
+.collapsible-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#f8fafc;
+  padding:12px 14px;
+  cursor:pointer;
+  border:1px solid #d4d7dd;
+  border-radius:8px;
+  font-weight:600;
+}
+
+.arrow {
+  transition: transform .25s ease;
+  font-size:18px;
+}
+
+.arrow.rotate {
+  transform: rotate(90deg);
+}
+
+.collapsible-content {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.35s ease;
+  background:#fff;
+  border-left:1px solid #e2e8f0;
+  border-right:1px solid #e2e8f0;
+  border-bottom:1px solid #e2e8f0;
+  border-radius:0 0 8px 8px;
+  padding:0 14px;  /* collapsed state padding = 0 */
+}
+
+.collapsible-content.open {
+  padding:14px;
+}
+
+.gradient-header {
+    width: 100%;
+    padding: 22px 0;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 10px 10px 10px 10px;
+
+    background: linear-gradient(90deg, #0066ff, #aa00ff);
+    /* You can adjust colors: left → right gradient */
+    
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+
+
 </style>
+
 </head>
 <body>
+
 <div class="container">
   <div class="card">
-    <h2>Income Tax Calculator</h2>
+  <!--<div class="gradient-header">
+    Income Tax Calculator
+</div>-->
 
-    <div class="row">
+    <!-- UI FIELDS  -->
+	<div class="section">
+		<div class="col">
+			<label>Assessment year</label>
+			<select id="ay">
+			  <option>2025 - 2026</option>
+			  <option>2024 - 2025</option>
+			</select>
+        </div>
+	</div>
+	
+	<div class="section">
+		<div class="col">
+			<label>Age category</label>
+			<select id="age">
+			  <option value="below60">Below 60</option>
+			  <option value="senior">60 - 80</option>
+			  <option value="super">Above 80</option>
+			</select>
+		</div>
+
+	</div>
+    <!--<div class="row">
       <div class="col">
         <label>Assessment year</label>
         <select id="ay">
@@ -40,87 +202,244 @@
           <option value="super">Above 80</option>
         </select>
       </div>
-    </div>
+    </div>-->
 
     <div class="section">
-      <h3>Income</h3>
+      <h3>Annual Income</h3>
       <div class="row">
-        <div class="col"><label>Gross salary income</label><input id="gross" type="number" value="0"></div>
-        <div class="col"><label>Annual income from other sources</label><input id="otherSrc" type="number" value="0"></div>
+        <div class="col"><input id="gross" type="number" value="0"></div>
+        <!--<div class="col"><label>Annual income from other sources</label><input id="otherSrc" type="number" value="0"></div>
         <div class="col"><label>Annual income from interest</label><input id="interest" type="number" value="0"></div>
-        <div class="col"><label>Rental Income (Let-out property)</label><input id="rent" type="number" value="0"></div>
-        <div class="col"><label>Home loan interest (self-occupied)</label><input id="homeSelf" type="number" value="0"></div>
-        <div class="col"><label>Home loan interest (let-out)</label><input id="homeLet" type="number" value="0"></div>
+        <div class="col"><label>Rental Income (Let-out)</label><input id="rent" type="number" value="0"></div>
+        <div class="col"><label>Home loan interest (Self)</label><input id="homeSelf" type="number" value="0"></div>
+        <div class="col"><label>Home loan interest (Let-out)</label><input id="homeLet" type="number" value="0"></div>-->
       </div>
     </div>
 
-    <div class="section">
-      <h3>Deductions</h3>
-      <div class="row">
-        <div class="col"><label>80C</label><input id="d80c" type="number" value="0"></div>
-        <div class="col"><label>NPS u/s 80CCD(1B)</label><input id="nps" type="number" value="0"></div>
-        <div class="col"><label>Medical Insurance u/s 80D</label><input id="d80d" type="number" value="0"></div>
-        <div class="col"><label>Donation u/s 80G</label><input id="d80g" type="number" value="0"></div>
-        <div class="col"><label>Edu Loan Interest u/s 80E</label><input id="d80e" type="number" value="0"></div>
-        <div class="col"><label>Interest on savings (80TTA/80TTB)</label><input id="d80tta" type="number" value="0"></div>
-      </div>
-    </div>
+	<div class="section">
+	  <div class="collapsible-header" onclick="toggleCollapse('deductionContent','arrow1')">
+		<h3>Deductions</h3>
+		<span id="arrow1" class="arrow">▶</span>
+	  </div>
 
-    <div class="section">
-      <h3>HRA Exemption</h3>
-      <div class="row">
-        <div class="col"><label>Basic salary</label><input id="basic" type="number" value="0"></div>
-        <div class="col"><label>DA</label><input id="da" type="number" value="0"></div>
-        <div class="col"><label>HRA received</label><input id="hra" type="number" value="0"></div>
-        <div class="col"><label>Total rent paid</label><input id="rentPaid" type="number" value="0"></div>
-        <div class="col">
-          <label>Metro city?</label>
-          <select id="metro"><option value="yes">Yes</option><option value="no">No</option></select>
-        </div>
-      </div>
-    </div>
+	  <div id="deductionContent" class="collapsible-content">
+		<div class="row">
+		  <div class="col"><label>80C</label><input id="d80c" type="number" value="0"></div>
+		  <div class="col"><label>NPS (80CCD1B)</label><input id="nps" type="number" value="0"></div>
+		  <div class="col"><label>80D Mediclaim</label><input id="d80d" type="number" value="0"></div>
+		  <div class="col"><label>80G Donation</label><input id="d80g" type="number" value="0"></div>
+		  <div class="col"><label>80E Education Loan</label><input id="d80e" type="number" value="0"></div>
+		  <div class="col"><label>80TTA/TTB</label><input id="d80tta" type="number" value="0"></div>
+		</div>
+	  </div>
+	</div>
+
+
+	<div class="section">
+	  <div class="collapsible-header" onclick="toggleCollapse('hraContent','arrow2')">
+		<h3>HRA Exemption</h3>
+		<span id="arrow2" class="arrow">▶</span>
+	  </div>
+
+	  <div id="hraContent" class="collapsible-content">
+		<div class="row">
+		  <div class="col"><label>Basic salary</label><input id="basic" type="number" value="0"></div>
+		  <div class="col"><label>DA</label><input id="da" type="number" value="0"></div>
+		  <div class="col"><label>HRA received</label><input id="hra" type="number" value="0"></div>
+		  <div class="col"><label>Total rent paid</label><input id="rentPaid" type="number" value="0"></div>
+		  <div class="col">
+			<label>Metro city?</label>
+			<select id="metro">
+			  <option value="yes">Yes</option>
+			  <option value="no">No</option>
+			</select>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
 
     <button id="calcBtn">CALCULATE</button>
     <div id="result" class="result" style="display:none"></div>
   </div>
 </div>
 
+<!-- WORKING SCRIPT -->
 <script>
-function formatINR(x){ return '₹'+Number(x||0).toLocaleString('en-IN'); }
+// Make collapsible work globally
+window.toggleCollapse = function (contentId, arrowId) {
+    const content = document.getElementById(contentId);
+    const arrow = document.getElementById(arrowId);
 
-function calculate(){
-  let gross = +gross.value;
-  let totalIncome = gross + +otherSrc.value + +interest.value + +rent.value;
-  let deductions = (+d80c.value) + (+nps.value) + (+d80d.value) + (+d80g.value) + (+d80e.value) + (+d80tta.value);
+    if (content.classList.contains("open")) {
+        content.classList.remove("open");
+        content.style.maxHeight = "0px";
+        arrow.classList.remove("rotate");
+    } else {
+        content.classList.add("open");
+        content.style.maxHeight = content.scrollHeight + "px";
+        arrow.classList.add("rotate");
+    }
+};
 
-  // simple HRA rule
-  let hraExempt = Math.min(
-    +hra.value,
-    (+basic.value * (metro.value==='yes'?0.5:0.4)),
-    Math.max(0, +rentPaid.value - 0.1 * +basic.value)
-  );
+document.addEventListener("DOMContentLoaded", () => {
 
-  deductions += hraExempt;
-  let taxable = Math.max(0, totalIncome - deductions);
+  /*function toggleCollapse(contentId, arrowId) {
+    const content = document.getElementById(contentId);
+    const arrow = document.getElementById(arrowId);
 
-  let tax = taxable <= 250000 ? 0 : taxable <= 500000 ? (taxable-250000)*0.05 : taxable <= 1000000 ? 12500 + (taxable-500000)*0.2 : 112500 + (taxable-1000000)*0.3;
+    if (content.classList.contains("open")) {
+        content.classList.remove("open");
+        content.style.maxHeight = "0px";
+        arrow.classList.remove("rotate");
+    } else {
+        content.classList.add("open");
+        content.style.maxHeight = content.scrollHeight + "px";
+        arrow.classList.add("rotate");
+    }
+  }*/
 
-  let cess = tax * 0.04;
-  let total = tax + cess;
+  const el = id => document.getElementById(id);
+  const f  = id => Number(el(id).value) || 0;
 
-  result.style.display = 'block';
-  result.innerHTML = `
-    <strong>Total Income:</strong> ${formatINR(totalIncome)}<br>
-    <strong>Deductions:</strong> ${formatINR(deductions)}<br>
-    <strong>Taxable:</strong> ${formatINR(taxable)}<br>
-    <hr>
-    <strong>Tax:</strong> ${formatINR(tax)}<br>
-    <strong>Cess (4%):</strong> ${formatINR(cess)}<br>
-    <strong>Total Tax:</strong> ${formatINR(total)}
-  `;
-}
+  const result = el("result");
+  const btn = el("calcBtn");
 
-calcBtn.onclick = calculate;
+  let DEBUG = true;
+  const log = (...x) => { if (DEBUG) console.log(...x); };
+
+  const formatINR = val => "₹" + Number(val||0).toLocaleString("en-IN");
+
+  /* ---------------- OLD REGIME ---------------- */
+  function computeOldRegime(taxable){
+    let slabs=[];
+    let tax=0;
+
+    slabs.push({range:"0–2.5L",rate:"0%",amount:0});
+
+    if(taxable>250000){
+      let amt=Math.min(taxable,500000)-250000;
+      let t=amt*0.05; tax+=t;
+      slabs.push({range:"2.5–5L",rate:"5%",amount:t});
+    }
+    if(taxable>500000){
+      let amt=Math.min(taxable,1000000)-500000;
+      let t=amt*0.20; tax+=t;
+      slabs.push({range:"5–10L",rate:"20%",amount:t});
+    }
+    if(taxable>1000000){
+      let amt=taxable-1000000;
+      let t=amt*0.30; tax+=t;
+      slabs.push({range:"10L+",rate:"30%",amount:t});
+    }
+
+    return {tax, slabs};
+  }
+
+  /* ---------------- NEW REGIME (LATEST) ---------------- */
+  function computeNewRegime(taxable){
+    const SLABS=[400000,800000,1200000,1600000,2000000,2400000];
+    const RATES=[0,0.05,0.10,0.15,0.20,0.25];
+
+    let slabs=[];
+    let tax=0;
+    let prev=0;
+
+    for(let i=0;i<SLABS.length;i++){
+      if(taxable>prev){
+        let upper=SLABS[i];
+        let amt=Math.min(taxable,upper)-prev;
+        let t=amt*RATES[i];
+        tax+=t;
+        slabs.push({range:`${formatINR(prev)} - ${formatINR(upper)}`,rate:(RATES[i]*100)+"%",amount:t});
+      }
+      prev=SLABS[i];
+    }
+	
+	if(taxable > 1200000 && taxable < 1275000){
+	    console.log(taxable);
+		tax= taxable - 1200000;
+		console.log(tax);	
+	}
+
+    if(taxable>2400000){
+      let amt=taxable-2400000;
+      let t=amt*0.30;
+      tax+=t;
+      slabs.push({range:"Above 24L",rate:"30%",amount:t});
+    }
+
+    return {tax, slabs};
+  }
+
+  /* ---------------- CALCULATE ---------------- */
+  function calculate(){
+
+    const gross=f("gross") /*otherSrc=f("otherSrc"), interest=f("interest"),
+          rent=f("rent"), homeSelf=f("homeSelf"), homeLet=f("homeLet")*/;
+
+    const d80c=f("d80c"), nps=f("nps"), d80d=f("d80d"), d80g=f("d80g"),
+          d80e=f("d80e"), d80tta=f("d80tta");
+
+    const basic=f("basic"), da=f("da"), hraRec=f("hra"),
+          rentPd=f("rentPaid"), metro=el("metro").value==="yes";
+
+    let totalIncome = gross /*+ otherSrc + interest + rent - homeSelf - homeLet*/;
+
+    let hraExempt = Math.min(
+      hraRec,
+      basic * (metro ? 0.5 : 0.4),
+      Math.max(0, rentPd - 0.1 * basic)
+    );
+
+    /* OLD */
+    const oldStd=50000;
+    let deductions=d80c+nps+d80d+d80g+d80e+d80tta+hraExempt+oldStd;
+    let taxableOld=Math.max(0,totalIncome-deductions);
+
+    const oldRes=computeOldRegime(taxableOld);
+    let cessOld=oldRes.tax*0.04;
+    let totalOld=oldRes.tax+cessOld;
+
+    /* NEW */
+    const newStd=75000;
+    let taxableNew=Math.max(0,totalIncome-newStd);
+	
+	let newRes = 0
+	let cessNew = 0
+	let totalNew = 0
+	console.log(taxableNew);
+	if(taxableNew > 1200000){
+		newRes= computeNewRegime(taxableNew);
+		cessNew=newRes.tax*0.04;
+		//console.log(cessNew);
+		totalNew=newRes.tax+cessNew;
+		
+	} /*else if(taxableNew > 1275000) {
+		newRes=computeNewRegime(taxableNew);
+		cessNew=newRes.tax*0.04;
+		totalNew=newRes.tax+cessNew;
+	}*/
+
+    result.style.display="block";
+    result.innerHTML=`
+      <h3>Old Regime</h3>
+      Taxable: <b>${formatINR(taxableOld)}</b><br>
+      Tax: <b>${formatINR(oldRes.tax)}</b><br>
+      Cess: <b>${formatINR(cessOld)}</b><br>
+      Total: <b>${formatINR(totalOld)}</b><br><br>
+
+      <h3>New Regime</h3>
+      Taxable: <b>${formatINR(taxableNew)}</b><br>
+      Tax: <b>${formatINR(newRes.tax)}</b><br>
+      Cess: <b>${formatINR(cessNew)}</b><br>
+      Total: <b>${formatINR(totalNew)}</b><br>
+    `;
+  }
+
+  btn.addEventListener("click", calculate);
+});
 </script>
+
 </body>
 </html>
