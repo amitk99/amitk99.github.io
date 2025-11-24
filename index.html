@@ -15,13 +15,14 @@ body {
 }
 
 .container {
+  background:#fff;
   max-width: 900px;
   margin:auto;
 }
 
 .card {
   background:#fff;
-  padding:15px;
+  padding:20px;
   border-radius:0px;
   box-shadow:0 4px 14px rgba(0,0,0,0.06);
 }
@@ -87,8 +88,9 @@ button:hover {
 
 .result {
   margin-top:20px;
-  padding:16px;
-  background:#f1f5f9;
+  padding:0px;
+  //background:#f1f5f9;
+  background:#fff;
   border-radius:8px;
   font-size:15px;
   line-height:1.6;
@@ -151,7 +153,85 @@ button:hover {
     margin-bottom: 20px;
 }
 
+.tax-card {
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-left:20px;
+  padding-right:20px;
+  padding-bottom:15px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #f6e9ff, #f2e7ff, #ece2ff);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
 
+.new-tax-card {
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-left:20px;
+  padding-right:20px;
+  padding-bottom:15px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #eef5ff, #e5f0ff, #dcebff);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+.recommdended-tax-card {
+  margin-top: 10px;
+  padding: 20px 20px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #eefdf3, #e7fdee, #ddfce8);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+.tax-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  margin-top:5px;
+  color: #222;
+}
+
+.tax-amount {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  background: linear-gradient(90deg, #8a2be2, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #222;
+}
+
+.new-tax-amount {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  background: linear-gradient(90deg, #155dfc, #155dfc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #222;
+}
+
+.tax-details {
+    margin-top: 5px;
+}
+
+.tax-details .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0;
+}
+
+.tax-details .label {
+    font-size: 14px;
+    color: #000;
+    opacity: 0.85;
+}
+
+.tax-details .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
 
 </style>
 
@@ -160,10 +240,7 @@ button:hover {
 
 <div class="container">
   <div class="card">
-  <!--<div class="gradient-header">
-    Income Tax Calculator
-</div>-->
-
+ 
     <!-- UI FIELDS  -->
 	<div class="section">
 		<div class="col">
@@ -186,34 +263,12 @@ button:hover {
 		</div>
 
 	</div>
-    <!--<div class="row">
-      <div class="col">
-        <label>Assessment year</label>
-        <select id="ay">
-          <option>2025 - 2026</option>
-          <option>2024 - 2025</option>
-        </select>
-      </div>
-      <div class="col">
-        <label>Age category</label>
-        <select id="age">
-          <option value="below60">Below 60</option>
-          <option value="senior">60 - 80</option>
-          <option value="super">Above 80</option>
-        </select>
-      </div>
-    </div>-->
 
     <div class="section">
       <h3>Annual Income</h3>
       <div class="row">
-        <div class="col"><input id="gross" type="number" value="0"></div>
-        <!--<div class="col"><label>Annual income from other sources</label><input id="otherSrc" type="number" value="0"></div>
-        <div class="col"><label>Annual income from interest</label><input id="interest" type="number" value="0"></div>
-        <div class="col"><label>Rental Income (Let-out)</label><input id="rent" type="number" value="0"></div>
-        <div class="col"><label>Home loan interest (Self)</label><input id="homeSelf" type="number" value="0"></div>
-        <div class="col"><label>Home loan interest (Let-out)</label><input id="homeLet" type="number" value="0"></div>-->
-      </div>
+        <div class="col"><input id="gross" type="number"></div>
+       </div>
     </div>
 
 	<div class="section">
@@ -283,21 +338,6 @@ window.toggleCollapse = function (contentId, arrowId) {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  /*function toggleCollapse(contentId, arrowId) {
-    const content = document.getElementById(contentId);
-    const arrow = document.getElementById(arrowId);
-
-    if (content.classList.contains("open")) {
-        content.classList.remove("open");
-        content.style.maxHeight = "0px";
-        arrow.classList.remove("rotate");
-    } else {
-        content.classList.add("open");
-        content.style.maxHeight = content.scrollHeight + "px";
-        arrow.classList.add("rotate");
-    }
-  }*/
 
   const el = id => document.getElementById(id);
   const f  = id => Number(el(id).value) || 0;
@@ -415,26 +455,53 @@ document.addEventListener("DOMContentLoaded", () => {
 		//console.log(cessNew);
 		totalNew=newRes.tax+cessNew;
 		
-	} /*else if(taxableNew > 1275000) {
-		newRes=computeNewRegime(taxableNew);
-		cessNew=newRes.tax*0.04;
-		totalNew=newRes.tax+cessNew;
-	}*/
-
+	} 
     result.style.display="block";
-    result.innerHTML=`
-      <h3>Old Regime</h3>
-      Taxable: <b>${formatINR(taxableOld)}</b><br>
-      Tax: <b>${formatINR(oldRes.tax)}</b><br>
-      Cess: <b>${formatINR(cessOld)}</b><br>
-      Total: <b>${formatINR(totalOld)}</b><br><br>
+	result.innerHTML = `
+    <!-- Gradient Summary Cards -->
+    <div class="tax-card">
+		
+		<div class="tax-details">
+		<div class="row">
+        <div class="tax-title">Old Regime Tax</div>
+        <span class="tax-amount">${formatINR(totalOld)}</span>
+		</div>
+        <div class="row">
+            <span class="label">Taxable Income:</span>
+            <span class="value">${formatINR(taxableOld)}</span>
+        </div>
+        <div class="row">
+            <span class="label">Tax:</span>
+            <span class="value">${formatINR(oldRes.tax)}</span>
+        </div>
+        <div class="row">
+            <span class="label">Health & Education Cess:</span>
+            <span class="value">${formatINR(cessOld)}</span>
+        </div>
+    </div>
+    </div>
 
-      <h3>New Regime</h3>
-      Taxable: <b>${formatINR(taxableNew)}</b><br>
-      Tax: <b>${formatINR(newRes.tax)}</b><br>
-      Cess: <b>${formatINR(cessNew)}</b><br>
-      Total: <b>${formatINR(totalNew)}</b><br>
-    `;
+    <div class="new-tax-card">
+       
+		<div class="tax-details">
+		<div class="row">
+		<div class="tax-title">New Regime Tax</div>
+        <div class="new-tax-amount">${formatINR(totalNew)}</div>
+		</div>
+        <div class="row">
+            <span class="label">Taxable Income:</span>
+            <span class="value">${formatINR(taxableNew)}</span>
+        </div>
+        <div class="row">
+            <span class="label">Tax:</span>
+            <span class="value">${formatINR(newRes.tax)}</span>
+        </div>
+        <div class="row">
+            <span class="label">Health & Education Cess:</span>
+            <span class="value">${formatINR(cessNew)}</span>
+        </div>
+    </div>
+`;	
   }
 
   btn.addEventListener("click", calculate);
