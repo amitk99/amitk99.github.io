@@ -71,7 +71,7 @@ select {
 
 button {
   width:100%;
-  margin-top:20px;
+  margin-top:5px;
   padding:14px;
   border:none;
   border-radius:8px;
@@ -233,90 +233,163 @@ button:hover {
     color: #000;
 }
 
+/* Slabs Card */
+.slab-card {
+    max-width: 400px;
+    //background: #f8f1ff;
+    background: #f8fafc;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 14px;
+    //box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	box-shadow: 
+        0 0px 2px rgba(0,0,0,0.12),
+        0 -0px 2px rgba(0,0,0,0.06);
+}
+
+/* Title */
+.slab-title {
+    margin: 0 0 10px 0;
+    font-size: 1.0rem;
+    font-weight: 500;
+    background: linear-gradient(to right, #004cff, #b800ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Each slab row */
+.slab-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.0rem;
+    padding-top: 10px;
+	font-size: 14px
+}
+
+/* Right aligned percent */
+.slab-row .rate {
+    font-weight: 700;
+	font-size:16px;
+}
+
+
 </style>
 
 </head>
 <body>
 
 <div class="container">
-  <div class="card">
- 
-    <!-- UI FIELDS  -->
-	<div class="section">
-		<div class="col">
-			<label>Assessment year</label>
-			<select id="ay">
-			  <option>2025 - 2026</option>
-			  <option>2024 - 2025</option>
-			</select>
-        </div>
-	</div>
-	
-	<div class="section">
-		<div class="col">
-			<label>Age category</label>
-			<select id="age">
-			  <option value="below60">Below 60</option>
-			  <option value="senior">60 - 80</option>
-			  <option value="super">Above 80</option>
-			</select>
-		</div>
-
-	</div>
-
-    <div class="section">
-      <h3>Annual Income</h3>
-      <div class="row">
-        <div class="col"><input id="gross" type="number"></div>
-       </div>
-    </div>
-
-	<div class="section">
-	  <div class="collapsible-header" onclick="toggleCollapse('deductionContent','arrow1')">
-		<h3>Deductions</h3>
-		<span id="arrow1" class="arrow">▶</span>
-	  </div>
-
-	  <div id="deductionContent" class="collapsible-content">
-		<div class="row">
-		  <div class="col"><label>80C</label><input id="d80c" type="number" value="0"></div>
-		  <div class="col"><label>NPS (80CCD1B)</label><input id="nps" type="number" value="0"></div>
-		  <div class="col"><label>80D Mediclaim</label><input id="d80d" type="number" value="0"></div>
-		  <div class="col"><label>80G Donation</label><input id="d80g" type="number" value="0"></div>
-		  <div class="col"><label>80E Education Loan</label><input id="d80e" type="number" value="0"></div>
-		  <div class="col"><label>80TTA/TTB</label><input id="d80tta" type="number" value="0"></div>
-		</div>
-	  </div>
-	</div>
-
-
-	<div class="section">
-	  <div class="collapsible-header" onclick="toggleCollapse('hraContent','arrow2')">
-		<h3>HRA Exemption</h3>
-		<span id="arrow2" class="arrow">▶</span>
-	  </div>
-
-	  <div id="hraContent" class="collapsible-content">
-		<div class="row">
-		  <div class="col"><label>Basic salary</label><input id="basic" type="number" value="0"></div>
-		  <div class="col"><label>DA</label><input id="da" type="number" value="0"></div>
-		  <div class="col"><label>HRA received</label><input id="hra" type="number" value="0"></div>
-		  <div class="col"><label>Total rent paid</label><input id="rentPaid" type="number" value="0"></div>
-		  <div class="col">
-			<label>Metro city?</label>
-			<select id="metro">
-			  <option value="yes">Yes</option>
-			  <option value="no">No</option>
-			</select>
-		  </div>
-		</div>
-	  </div>
-	</div>
-
-
-    <button id="calcBtn">CALCULATE</button>
-    <div id="result" class="result" style="display:none"></div>
-  </div>
+   <div class="card">
+      <!-- UI FIELDS  -->
+      <div class="section">
+         <div class="col">
+            <label>Assessment year</label>
+            <select id="ay">
+               <option>2025 - 2026</option>
+               <option>2024 - 2025</option>
+            </select>
+         </div>
+      </div>
+      <div class="section">
+         <div class="col">
+            <label>Age category</label>
+            <select id="age">
+               <option value="below60">Below 60</option>
+               <option value="senior">60 - 80</option>
+               <option value="super">Above 80</option>
+            </select>
+         </div>
+      </div>
+      <div class="section">
+         <h3>Annual Income</h3>
+         <div class="row">
+            <div class="col"><input id="gross" type="number" placeholder="e.g. 1000000"></div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="collapsible-header" onclick="toggleCollapse('deductionContent','arrow1')">
+            <h3>Deductions</h3>
+            <span id="arrow1" class="arrow">▶</span>
+         </div>
+         <div id="deductionContent" class="collapsible-content">
+            <div class="row">
+               <div class="col"><label>80C</label><input id="d80c" type="number" value="0"></div>
+               <div class="col"><label>NPS (80CCD1B)</label><input id="nps" type="number" value="0"></div>
+               <div class="col"><label>80D Mediclaim</label><input id="d80d" type="number" value="0"></div>
+               <div class="col"><label>80G Donation</label><input id="d80g" type="number" value="0"></div>
+               <div class="col"><label>80E Education Loan</label><input id="d80e" type="number" value="0"></div>
+               <div class="col"><label>80TTA/TTB</label><input id="d80tta" type="number" value="0"></div>
+            </div>
+         </div>
+      </div>
+      <div class="section">
+         <div class="collapsible-header" onclick="toggleCollapse('hraContent','arrow2')">
+            <h3>HRA Exemption</h3>
+            <span id="arrow2" class="arrow">▶</span>
+         </div>
+         <div id="hraContent" class="collapsible-content">
+            <div class="row">
+               <div class="col"><label>Basic salary</label><input id="basic" type="number" value="0"></div>
+               <div class="col"><label>DA</label><input id="da" type="number" value="0"></div>
+               <div class="col"><label>HRA received</label><input id="hra" type="number" value="0"></div>
+               <div class="col"><label>Total rent paid</label><input id="rentPaid" type="number" value="0"></div>
+               <div class="col">
+                  <label>Metro city?</label>
+                  <select id="metro">
+                     <option value="yes">Yes</option>
+                     <option value="no">No</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+      </div>
+      <button id="calcBtn">CALCULATE</button>
+      <div id="result" class="result" style="display:none"></div>
+	  
+      <div class="slab-card">
+         <h2 class="slab-title">New Regime Tax Slabs</h2>
+         <div class="slab-row">
+            <span>Up to ₹12,00,000</span>
+            <span class="rate">0%</span>
+         </div>
+         <div class="slab-row">
+            <span>₹12,00,001 – ₹16,00,000</span>
+            <span class="rate">15%</span>
+         </div>
+         <div class="slab-row">
+            <span>₹16,00,001 – ₹20,00,000</span>
+            <span class="rate">20%</span>
+         </div>
+         <div class="slab-row">
+            <span>₹20,00,001 – ₹24,00,000</span>
+            <span class="rate">25%</span>
+         </div>
+         <div class="slab-row">
+            <span>Above ₹24,00,000</span>
+            <span class="rate">30%</span>
+         </div>
+      </div>
+      <div class="slab-card">
+         <h2 class="slab-title">Old Regime Tax Slabs</h2>
+         <div class="slab-row">
+            <span>Up to ₹2,50,000</span>
+            <span class="rate">0%</span>
+         </div>
+         <div class="slab-row">
+            <span>₹2,50,001 – ₹5,00,000</span>
+            <span class="rate">5%</span>
+         </div>
+         <div class="slab-row">
+            <span>₹5,00,001 – ₹10,00,000</span>
+            <span class="rate">20%</span>
+         </div>
+         <div class="slab-row">
+            <span>Above ₹10,00,001</span>
+            <span class="rate">30%</span>
+         </div>
+      </div>
+   </div>
+</div>
 </div>
 
 <!-- WORKING SCRIPT -->
@@ -455,7 +528,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		//console.log(cessNew);
 		totalNew=newRes.tax+cessNew;
 		
-	} 
+	} /*else if(taxableNew > 1275000) {
+		newRes=computeNewRegime(taxableNew);
+		cessNew=newRes.tax*0.04;
+		totalNew=newRes.tax+cessNew;
+	}*/
+
     result.style.display="block";
 	result.innerHTML = `
     <!-- Gradient Summary Cards -->
@@ -501,7 +579,22 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="value">${formatINR(cessNew)}</span>
         </div>
     </div>
-`;	
+	
+    <!-- Detailed Breakdown -->
+    <!--<h3>Old Regime</h3>
+    Taxable: <b>${formatINR(taxableOld)}</b><br>
+    Tax: <b>${formatINR(oldRes.tax)}</b><br>
+    Cess: <b>${formatINR(cessOld)}</b><br>
+    Total: <b>${formatINR(totalOld)}</b><br><br>
+
+    <h3>New Regime</h3>
+    Taxable: <b>${formatINR(taxableNew)}</b><br>
+    Tax: <b>${formatINR(newRes.tax)}</b><br>
+    Cess: <b>${formatINR(cessNew)}</b><br>
+    Total: <b>${formatINR(totalNew)}</b><br>-->
+`;
+
+	
   }
 
   btn.addEventListener("click", calculate);
